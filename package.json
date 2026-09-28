@@ -1,0 +1,16 @@
+{
+  "name": "videopilot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "用 Z X S D R 控制网页视频进度与倍速的浏览器插件",
+  "scripts": {
+    "test": "node --test tests/core.test.cjs tests/release.test.cjs",
+    "test:browser": "node --test tests/browser.test.cjs",
+    "check": "node --check extension/shared.js && node --check extension/content.js && node --check extension/popup.js && node --check scripts/package.cjs && node --check scripts/release-notes.cjs",
+    "package": "node scripts/package.cjs",
+    "release:prepare": "node scripts/release-notes.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.58.2"
+  }
+}

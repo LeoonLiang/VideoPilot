@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "VideoPilot · 视频随心控",
+  "version": "1.0.0",
+  "description": "Z 后退，短按 X 前进、长按 X 临时加速，S / D 调节倍速，R 重置为 1×。在弹窗中设置倍速与跳转秒数。",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "VideoPilot · 视频随心控",
+    "default_popup": "popup.html",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+  },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "js": ["shared.js", "content.js"],
+    "run_at": "document_start",
+    "all_frames": true,
+    "match_about_blank": true,
+    "match_origin_as_fallback": true
+  }]
+}
