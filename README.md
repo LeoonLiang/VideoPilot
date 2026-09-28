@@ -74,7 +74,7 @@ npm install             # 安装浏览器测试依赖
 npx playwright install chromium
 npm run test:browser    # 真实视频、popup、实际 MV3 加载集成测试
 npm run package         # 同时生成 dist/VideoPilot/ 和 dist/VideoPilot.zip
-npm run release:prepare -- v1.0.0  # 校验版本并生成 dist/release-notes.md
+npm run release:prepare -- v1.0.1  # 校验版本并生成 dist/release-notes.md
 ```
 
 可通过 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` 指定现有的 Chromium / Chrome for Testing。浏览器测试使用临时配置和本地生成的 30 秒测试视频，不读取个人浏览器数据。测试截图在 `artifacts/popup.png`。
@@ -85,17 +85,7 @@ npm run release:prepare -- v1.0.0  # 校验版本并生成 dist/release-notes.md
 
 流程依次执行测试、语法检查、版本校验、提取更新说明、打包，然后创建 GitHub Release 并上传 `VideoPilot.zip`。它使用 GitHub 自动提供的 `GITHUB_TOKEN`，无需添加个人 token；仓库需要启用 Actions 并允许此工作流申请 `contents: write` 权限。
 
-首次发布前，将本项目提交到仓库（`origin` 已配置为 `https://github.com/LeoonLiang/VideoPilot.git`）：
-
-```sh
-git add .
-git commit -m "feat: initial VideoPilot release"
-git push -u origin main
-git tag -a v1.0.0 -m "Release v1.0.0"
-git push origin v1.0.0
-```
-
-后续每次发布，例如 `1.1.0`：
+仓库地址为 `https://github.com/LeoonLiang/VideoPilot.git`。每次发布新版本，例如 `1.1.0`：
 
 1. 将 `extension/manifest.json` 和 `package.json` 的 `version` 都改为 `1.1.0`。
 2. 在 `CHANGELOG.md` 的 `Unreleased` 下新增版本条目，把此次修改写入其中：
@@ -131,6 +121,14 @@ git push origin v1.0.0
 Release 正文只使用对应版本标题与下一个二级标题之间的 Markdown，保留「新增」「修复」等三级标题。`Unreleased`、其他版本和 Git 提交记录不会混入。版本不一致，或日志条目缺失、重复、为空时，工作流会失败并停止发布。
 
 附件上传成功后才公开 Release。若上传失败，草稿会保留，修复运行环境后可在 Actions 中重新运行该次任务；已经公开的 Release 不会被重新运行覆盖。源码或 CHANGELOG 本身有误时，应修复后使用新的版本 tag。
+
+如果 tag 已推送但没有产生运行，可使用 GitHub CLI 手动触发同一个 tag 的发布（先完成 `gh auth login`）：
+
+```sh
+gh workflow run release.yml --repo LeoonLiang/VideoPilot --ref v1.0.1
+```
+
+必须指定要发布的版本 tag；选择 `main` 分支会被版本校验拒绝。
 
 本流程只发布到 GitHub Releases；浏览器扩展商店的上架需要另行操作。
 

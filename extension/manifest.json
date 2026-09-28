@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "VideoPilot · 视频随心控",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Z 后退，短按 X 前进、长按 X 临时加速，S / D 调节倍速，R 重置为 1×。在弹窗中设置倍速与跳转秒数。",
   "permissions": ["storage"],
   "action": {

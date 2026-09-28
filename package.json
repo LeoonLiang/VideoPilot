@@ -1,6 +1,6 @@
 {
   "name": "videopilot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "用 Z X S D R 控制网页视频进度与倍速的浏览器插件",
   "scripts": {
